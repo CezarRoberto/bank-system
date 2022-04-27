@@ -1,0 +1,27 @@
+
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    ports:
+      - 2354:5432
+    environment:
+      - POSTGRES_USER=database
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=db_bank
+    volumes:
+      - "./volumes/pg:/var/lib/postgresql/data"
+  db_bank:
+    build: .
+    container_name: db_bank
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://esqueci:esqueci@db:5432/db_db_bank
+    command: node ./scripts/script.mjs

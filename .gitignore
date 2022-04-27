@@ -1,0 +1,10 @@
+node_modules
+dist
+volumes
+coverage
+
+# Files
+.yarn-error.log
+.env
+.vscode
+.git
