@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@prisma/client": "3.13.0",
@@ -24,5 +25,8 @@
     "tsconfig-paths": "^3.14.1",
     "tsyringe": "^4.6.0",
     "typescript": "^4.6.3"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4"
   }
 }
