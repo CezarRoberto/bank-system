@@ -10,8 +10,8 @@ import '../../container';
 
 const app: Application = express();
 
+app.use(cors);
 app.use(router);
-app.use(cors)
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     if (err instanceof AppError) {
         return response.status(err.statusCode).json({

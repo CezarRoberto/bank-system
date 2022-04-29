@@ -4,7 +4,7 @@ interface ICreateClientDTO {
     cpf: string
     email: string
     password: string
-    company_id: string
+    company_id?: string
 }
 
 export {ICreateClientDTO}

@@ -5,7 +5,7 @@ interface ICreateCompanyDTO {
     name: string;
     cnpj: string;
     code: string;
-    clients: Clients[];
+    clients?: Clients[];
     created_at?: Date;
 }
 

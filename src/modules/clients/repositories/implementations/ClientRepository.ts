@@ -30,6 +30,14 @@ class ClientRepository implements IClientRepository {
         return client as Clients
     }
 
+    async findByEmail(email: string): Promise<Clients> {
+        const client = await prismaClient.clients.findFirst({
+            where: {email}
+        })
+
+        return client as Clients
+    }
+
     async deleteById(id: string): Promise<Clients> {
         const client = await prismaClient.clients.delete({
             where: {
