@@ -4,9 +4,13 @@ import cors from 'cors';
 import 'express-async-errors';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { AppError } from '@shared/error/AppError';
+import { router } from './routes';
+import '../../container';
+
 
 const app: Application = express();
 
+app.use(router);
 app.use(cors)
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     if (err instanceof AppError) {

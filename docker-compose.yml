@@ -23,5 +23,5 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql://esqueci:esqueci@db:5432/db_db_bank
+      - DATABASE_URL=postgresql://database:123456@db:5432/db_db_bank
     command: node ./scripts/script.mjs
