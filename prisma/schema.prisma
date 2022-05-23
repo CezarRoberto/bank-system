@@ -27,20 +27,20 @@ model Client {
   cpf          String
   email        String        @unique
   password     String
-  company      Company       @relation(fields: [company_id], references: [id])
   company_id   String
-  transaction Transaction[] @relation("ClientsOnTransactions")
-
+  credits      String
+  transactions Transactions[]
+  company      Company       @relation(fields: [company_id], references: [id])
+  
   @@map("clients")
 }
 
-model Transaction {
+model Transactions {
   id      String          @id @unique @default(uuid())
   type    TransactionType @default(DEPOSIT)
   amount  String
-  clients Client[] @relation("ClientsOnTransactions")
-
-
+  client_id String
+  client Client @relation(fields: [client_id], references: [id])
   @@map("transactions")
 }
 

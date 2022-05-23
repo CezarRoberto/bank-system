@@ -4,14 +4,15 @@ import { CreateClientUseCase } from './CreateClientUseCase';
 
 class CreateClientController {
     async handle(request: Request, response: Response) {
-        const {name, cpf, email, password} = request.body;
+        const {name, cpf, email, password, company_id} = request.body;
         const createClientUseCase = container.resolve(CreateClientUseCase)
 
         const client = await createClientUseCase.execute({
             name,
             cpf,
             email,
-            password
+            password,
+            company_id
         })
 
         return response.status(200).json(client)

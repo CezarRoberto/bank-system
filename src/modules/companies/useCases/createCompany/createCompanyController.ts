@@ -5,14 +5,13 @@ import { CreateCompanyUseCase } from './createCompanyUseCase';
 
 class CreateCompanyController {
     async handle(request: Request, response: Response) {
-        const {name, cnpj, code, clients} = request.body;
+        const {name, cnpj, code} = request.body;
         const createCompanyUseCase = container.resolve(CreateCompanyUseCase);
 
         const company = await createCompanyUseCase.execute({
             name,
             cnpj,
             code,
-            clients
         })
 
         return response.status(200).json(company)

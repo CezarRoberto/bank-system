@@ -1,14 +1,12 @@
-import { ICreateCompanyDTO } from "../dtos/ICreateCompanyDTO";
-import { Clients, Company } from "@prisma/client";
+import { Company } from "@prisma/client"
+import { ICreateCompanyDTO } from "../dtos/ICreateCompanyDTO"
 
 interface ICompanyRepository {
-    create({name, cnpj, code, clients}: ICreateCompanyDTO): Promise<Company>
+    create({name, cnpj, code}: ICreateCompanyDTO): Promise<Company>
     findById(id: string): Promise<Company>
     findByCNPJ(cnpj: string): Promise<Company>
     findAll(): Promise<Company[]>
-    deleteCompanyById(id: string): Promise<Company>
-    addClientsToCompany(clients: Clients[]): Promise<Company>
-    createAdd({name, cnpj, code}: ICreateCompanyDTO): Promise<Company>
+    deleteById(id: string): Promise<Company>
 }
 
 export {ICompanyRepository}

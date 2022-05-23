@@ -9,13 +9,11 @@ import { inject, injectable } from 'tsyringe';
 @injectable()
 class CreateClientUseCase {
     constructor(
-        @inject('CompanyRepository')
-        private companyRepository: CompanyRepository,
         @inject('ClientRepository')
         private clientRepository: ClientRepository
     ) {}
 
-    async execute({name, cpf, email, password}) {
+    async execute({name, cpf, email, password, company_id}) {
         const clientAlreadyExists = await this.clientRepository.findByEmail(email)
 
         if (clientAlreadyExists) {
@@ -28,7 +26,8 @@ class CreateClientUseCase {
             name,
             cpf,
             email,
-            password: passwordHashed
+            password: passwordHashed,
+            company_id
         })
 
         return client

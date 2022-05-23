@@ -1,52 +1,57 @@
+
 import { ICreateClientDTO } from "@modules/clients/dtos/ICreateClientDTO";
-import { Clients } from "@prisma/client";
+import { Client } from "@prisma/client";
 import prismaClient from "@shared/infra/prisma";
 import { IClientRepository } from "../IClientRepository";
 
 class ClientRepository implements IClientRepository {
-    async create({ name, cpf, email, password, company_id }: ICreateClientDTO): Promise<Clients> {
-        const client = await prismaClient.clients.create({
+    async create({ name, cpf, email, password, company_id }: ICreateClientDTO): Promise<Client> {
+        const client = await prismaClient.client.create({
             data: {
                 name,
                 cpf,
-                email,
                 password,
+                email,
                 company_id
             }
         })
         return client
     }
 
-    async findAll(): Promise<Clients[]> {
-        const clients = await prismaClient.clients.findMany();
+    async findById(id: string): Promise<Client> {
+        const client = await prismaClient.client.findUnique({
+            where: {id}
+        })
+        return client as Client
+    }
+
+    async findAll(): Promise<Client[]> {
+        const clients = await prismaClient.client.findMany()
         return clients
     }
 
-    async findById(id: string): Promise<Clients> {
-        const client = await prismaClient.clients.findFirst({
-            where: {id}
-        })
-
-        return client as Clients
-    }
-
-    async findByEmail(email: string): Promise<Clients> {
-        const client = await prismaClient.clients.findFirst({
+    async findByEmail(email: string): Promise<Client> {
+        const client = await prismaClient.client.findFirst({
             where: {email}
         })
 
-        return client as Clients
+        return client as Client
     }
-
-    async deleteById(id: string): Promise<Clients> {
-        const client = await prismaClient.clients.delete({
-            where: {
-                id
-            }
+    async findByBank(company_id: string): Promise<Client> {
+        const client = await prismaClient.client.findFirst({
+            where: {company_id}
         })
 
-        return client as Clients
+        return client as Client
     }
+    async deleteById(id: string): Promise<Client> {
+        const client = await prismaClient.client.delete({
+            where: {id}
+        })
+
+        return client
+    }
+
 }
 
 export {ClientRepository}
