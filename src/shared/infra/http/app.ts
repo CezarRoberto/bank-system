@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'dotenv/config';
 import cors from 'cors';
 import 'express-async-errors';
+import helmet from 'helmet';
 import express, { Application, NextFunction, Request, Response } from 'express';
 import { AppError } from '@shared/error/AppError';
 import { router } from './routes';
@@ -10,10 +11,9 @@ import '../../container';
 
 const app: Application = express();
 
-app.use(express.json())
-
-
-app.use(cors);
+app.use(express.json());
+app.use(helmet())
+app.use(cors());
 app.use(router);
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     if (err instanceof AppError) {
