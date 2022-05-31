@@ -5,13 +5,11 @@ import { CreateTransactionUseCase } from './createTransactionUseCase';
 
 class CreateTransactionController {
     async handle(request: Request, response: Response) {
-        const { id } = request.params;
         const { client_id, amount, type } = await request.body;
 
         const createTransactionUseCase = container.resolve(CreateTransactionUseCase)
 
         const transaction = await createTransactionUseCase.execute({
-            id,
             client_id,
             amount,
             type

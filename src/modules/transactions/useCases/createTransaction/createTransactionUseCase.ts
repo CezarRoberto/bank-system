@@ -14,8 +14,8 @@ class CreateTransactionUseCase {
         private clientRepository: ClientRepository
     ) { }
 
-    async execute({ id, client_id, amount, type }) {
-        const clientDoesExists = await this.clientRepository.findById(id)
+    async execute({client_id, amount, type }) {
+        const clientDoesExists = await this.clientRepository.findById(client_id)
 
         if (!clientDoesExists) {
             throw new AppError('Client Doesnt Exists', 404);
