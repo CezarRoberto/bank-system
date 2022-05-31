@@ -2,6 +2,7 @@ module.exports = {
     presets: [
       [
         '@babel/preset-env',
+        "@babel/preset-typescript",
         {
           targets: {
             node: 'current',
@@ -21,11 +22,8 @@ module.exports = {
         {
           alias: {
             '@shared': './src/shared',
-            '@whatsapp': './src/modules/whatsapp',
-            '@instagram': './src/modules/instagram',
-            '@livechat': './src/modules/livechat',
-            '@chat2desk': './src/shared/modules/chat2desk',
-            '@configs': './src/configs',
+            '@errors': './src/shared/error',
+            '@modules': './src/modules/'
           },
         },
       ],
