@@ -6,11 +6,11 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - 2354:5432
+      - 5432:5432
     environment:
-      - POSTGRES_USER=database
-      - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=db_bank
+      - POSTGRES_USER=zjrlpxqqnmkfey
+      - POSTGRES_PASSWORD=090d3e5548dc7b8a0e0c1f7b8abfa56205b6563acc8ca8905bd85d2ab2d05c8e
+      - POSTGRES_DB=d6d2jhuetk0cku
     volumes:
       - "./volumes/pg:/var/lib/postgresql/data"
   db_bank:
