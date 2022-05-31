@@ -8,9 +8,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=zjrlpxqqnmkfey
-      - POSTGRES_PASSWORD=090d3e5548dc7b8a0e0c1f7b8abfa56205b6563acc8ca8905bd85d2ab2d05c8e
-      - POSTGRES_DB=d6d2jhuetk0cku
+      - POSTGRES_USER=fsrxvcjbmtwaxt
+      - POSTGRES_PASSWORD=fcd147ed2abf9e0910392a28cceddd55d7757c52a5edc2dff29d1e383333fdd1
+      - POSTGRES_DB=d40guoc22hh35s
     volumes:
       - "./volumes/pg:/var/lib/postgresql/data"
   db_bank:
