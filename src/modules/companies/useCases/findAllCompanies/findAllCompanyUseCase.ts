@@ -1,14 +1,24 @@
-import { Request, Response } from 'express';
-import { container } from 'tsyringe';
-import { FindAllCompaniesUseCase } from './findAllCompanyController';
+import { ICompanyRepository } from "@modules/companies/repositories/ICompaniesRepository";
+import { AppError } from "@shared/error/AppError";
+import { inject, injectable } from "tsyringe";
 
-class FindAllCompaniesController  {
-    async handle(request: Request, response: Response) {
-        const findAllCompaniesUseCase = container.resolve(FindAllCompaniesUseCase);
+@injectable()
+class FindAllCompaniesUseCase {
+    constructor (
+        @inject('CompanyRepository')
+        private companiesRepository: ICompanyRepository,
+    ) {}
 
-        const companies = await findAllCompaniesUseCase.execute()
-        return response.status(200).json(companies)
+    async execute() {
+        const companies = await this.companiesRepository.findAll()
+
+        if(!companies) {
+            throw new AppError('No Companies have been found', 404);
+        }
+
+        return companies
     }
 }
 
-export {FindAllCompaniesController}
+
+export {FindAllCompaniesUseCase}

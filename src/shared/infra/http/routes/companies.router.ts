@@ -1,6 +1,6 @@
 import { CreateCompanyController } from '@modules/companies/useCases/createCompany/createCompanyController';
 import { DeleteCompanyController } from '@modules/companies/useCases/deleteCompany/deleteCompanyController';
-import { FindAllCompaniesController } from '@modules/companies/useCases/findAllCompanies/findAllCompanyUseCase';
+import { FindAllCompaniesController } from '@modules/companies/useCases/findAllCompanies/findAllCompanyController';
 import { FindOneCompanyController } from '@modules/companies/useCases/findOneCompany/findOneCompanyController';
 import { Router } from 'express';
 

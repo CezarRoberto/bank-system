@@ -8,15 +8,15 @@ import { Router } from 'express';
 const clientsRouter = Router();
 
 const createClientController = new CreateClientController();
+const findAllClientsController = new FindAllClientsController();
 const findOneClientController = new FindOneClientController();
 const findClientsByBankController = new FindClientsByBankController()
 const deleteClientController = new DeleteClientController();
-const findAllClientsController = new FindAllClientsController();
 
 clientsRouter.post('/', createClientController.handle)
 clientsRouter.get('/:id', findOneClientController.handle)
-clientsRouter.get('/all', findAllClientsController.handle)
+clientsRouter.get('/', findAllClientsController.handle)
 clientsRouter.delete('/:id', deleteClientController.handle)
-clientsRouter.get("/bank", findClientsByBankController.handle)
+clientsRouter.get("/bank/:company_id", findClientsByBankController.handle)
 
 export {clientsRouter}

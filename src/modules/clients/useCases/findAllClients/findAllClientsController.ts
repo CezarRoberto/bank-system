@@ -8,7 +8,6 @@ class FindAllClientsController {
 
         const clients = await findAllClientsUseCase.execute()
 
-        console.log(clients)
         return response.status(200).json(clients)
     }
 }

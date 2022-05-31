@@ -4,7 +4,7 @@ import { FindAllClientsByBankUseCase } from './findClientsByBankUseCase';
 
 class FindClientsByBankController {
     async handle(request: Request, response: Response) {
-        const {company_id} = request.body;
+        const {company_id} = request.params;
         const findAllClientsByBankUseCase = container.resolve(FindAllClientsByBankUseCase)
 
         const clients = await findAllClientsByBankUseCase.execute(company_id)
