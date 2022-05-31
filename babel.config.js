@@ -1,7 +1,6 @@
 module.exports = {
     presets: [
       [
-        '@babel/preset-env',
         "@babel/preset-typescript",
         {
           targets: {
@@ -9,7 +8,7 @@ module.exports = {
           },
         },
       ],
-      '@babel/preset-typescript',
+      '@babel/preset-env',
     ],
     plugins: [
       'babel-plugin-transform-typescript-metadata',
