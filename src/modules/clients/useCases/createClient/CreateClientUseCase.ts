@@ -1,6 +1,5 @@
 import 'reflect-metadata';
 import { ClientRepository } from '@modules/clients/repositories/implementations/ClientRepository';
-import { CompanyRepository } from '@modules/companies/repositories/implementation/CompaniesRepository';
 import { AppError } from '@shared/error/AppError';
 import bcrypt from 'bcryptjs';
 
@@ -11,9 +10,9 @@ class CreateClientUseCase {
     constructor(
         @inject('ClientRepository')
         private clientRepository: ClientRepository
-    ) {}
+    ) { }
 
-    async execute({name, cpf, email, password, company_id}) {
+    async execute({ name, cpf, email, password, company_id, credits, amount }) {
         const clientAlreadyExists = await this.clientRepository.findByEmail(email)
 
         if (clientAlreadyExists) {
@@ -27,7 +26,9 @@ class CreateClientUseCase {
             cpf,
             email,
             password: passwordHashed,
-            company_id
+            company_id,
+            credits,
+            amount
         })
 
         return client
@@ -35,4 +36,4 @@ class CreateClientUseCase {
     }
 }
 
-export {CreateClientUseCase}
+export { CreateClientUseCase }

@@ -29,6 +29,7 @@ model Client {
   password     String
   company_id   String
   credits      String
+  amount       Int
   transactions Transactions[]
   company      Company       @relation(fields: [company_id], references: [id])
   
@@ -38,7 +39,7 @@ model Client {
 model Transactions {
   id      String          @id @unique @default(uuid())
   type    TransactionType @default(DEPOSIT)
-  amount  String
+  amount  Int
   client_id String
   client Client @relation(fields: [client_id], references: [id])
   @@map("transactions")

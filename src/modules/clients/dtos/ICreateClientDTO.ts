@@ -5,6 +5,8 @@ interface ICreateClientDTO {
     email: string
     password: string
     company_id: string
+    credits: string,
+    amount: number
 }
 
 export {ICreateClientDTO}
