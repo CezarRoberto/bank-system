@@ -3,6 +3,7 @@ import { DeleteCompanyController } from '@modules/companies/useCases/deleteCompa
 import { FindAllCompaniesController } from '@modules/companies/useCases/findAllCompanies/findAllCompanyController';
 import { FindOneCompanyController } from '@modules/companies/useCases/findOneCompany/findOneCompanyController';
 import { Router } from 'express';
+import { validateCompany } from '../middlewares/validateCompany';
 
 const companiesRouter = Router();
 
@@ -11,9 +12,9 @@ const findAllCompaniesController = new FindAllCompaniesController();
 const findOneCompanyController = new FindOneCompanyController();
 const deleteCompanyController = new DeleteCompanyController()
 
-companiesRouter.post('/', createCompanyController.handle);
+companiesRouter.post('/', validateCompany, createCompanyController.handle);
 companiesRouter.get('/all', findAllCompaniesController.handle)
 companiesRouter.get('/:id', findOneCompanyController.handle);
 companiesRouter.delete('/:id', deleteCompanyController.handle)
 
-export {companiesRouter}
+export { companiesRouter }

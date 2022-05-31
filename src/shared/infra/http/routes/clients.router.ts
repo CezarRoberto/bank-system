@@ -4,6 +4,7 @@ import { FindAllClientsController } from '@modules/clients/useCases/findAllClien
 import { FindClientsByBankController } from '@modules/clients/useCases/FindByBank/findClientByBankController';
 import { FindOneClientController } from '@modules/clients/useCases/findOneClient/FindOneClientController';
 import { Router } from 'express';
+import { validateClient } from '../middlewares/validateClient';
 
 const clientsRouter = Router();
 
@@ -13,10 +14,10 @@ const findOneClientController = new FindOneClientController();
 const findClientsByBankController = new FindClientsByBankController()
 const deleteClientController = new DeleteClientController();
 
-clientsRouter.post('/', createClientController.handle)
+clientsRouter.post('/', validateClient, createClientController.handle)
 clientsRouter.get('/:id', findOneClientController.handle)
 clientsRouter.get('/', findAllClientsController.handle)
 clientsRouter.delete('/:id', deleteClientController.handle)
 clientsRouter.get("/bank/:company_id", findClientsByBankController.handle)
 
-export {clientsRouter}
+export { clientsRouter }
