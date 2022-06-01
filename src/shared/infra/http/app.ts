@@ -10,7 +10,7 @@ import '../../container';
 import swaggerUi from 'swagger-ui-express';
 
 
-import swaggerFile from '../../../../docs/swagger.json'
+import swaggerFile from '../../docs/swagger.json'
 const app: Application = express();
 
 app.use(express.json());
