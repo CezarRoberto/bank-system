@@ -1,5 +1,5 @@
 import { ICreateTransactionDTO } from "@modules/transactions/dto/ICreateTransactionsDTO";
-import { Transactions, TransactionType } from "@prisma/client";
+import { Transactions,  } from "@prisma/client";
 import prismaClient from "@shared/infra/prisma";
 import { ITransactionRepository } from "../ITransactionRepository";
 
@@ -9,7 +9,7 @@ class TransactionRepository implements ITransactionRepository {
             data: {
                 client_id,
                 amount,
-                type: TransactionType.DEPOSIT || TransactionType.WITHDRAW
+                type
             }
         })
 
@@ -20,7 +20,9 @@ class TransactionRepository implements ITransactionRepository {
                         id: transaction.client_id
                     },
                     data: {
-                        amount: amount - transaction.amount
+                        amount: {
+                            increment: amount
+                        }
                     }
                 })
             ])
@@ -33,14 +35,15 @@ class TransactionRepository implements ITransactionRepository {
                         id: transaction.client_id
                     },
                     data: {
-                        amount: amount + transaction.amount
+                        amount: {
+                            decrement: amount 
+                        }
                     }
                 })
             ])
-        }
-
-        return transaction
     }
+    return transaction
+}
 
     async findByClient(client_id: string): Promise<Transactions[]> {
         const transactions = await prismaClient.transactions.findMany({
@@ -50,10 +53,48 @@ class TransactionRepository implements ITransactionRepository {
         return transactions
     }
 
+    async findById(id: string): Promise<Transactions | null> {
+        const transactions = await prismaClient.transactions.findFirst({
+            where: { id }
+        })
+
+        return transactions
+    }
+
     async deleteTransaction(id: string): Promise<Transactions> {
         const deletedTransaction = await prismaClient.transactions.delete({
             where: { id }
         })
+
+        if (deletedTransaction.type == "DEPOSIT") {
+            await prismaClient.$transaction([
+                prismaClient.client.update({
+                    where: {
+                        id: deletedTransaction.client_id
+                    },
+                    data: {
+                        amount: {
+                            decrement: deletedTransaction.amount
+                        }
+                    }
+                })
+            ])
+        }
+
+        if (deletedTransaction.type == "WITHDRAW") {
+            await prismaClient.$transaction([
+                prismaClient.client.update({
+                    where: {
+                        id: deletedTransaction.client_id
+                    },
+                    data: {
+                        amount: {
+                            increment: deletedTransaction.amount
+                        }
+                    }
+                })
+            ])
+    }
 
         return deletedTransaction
     }

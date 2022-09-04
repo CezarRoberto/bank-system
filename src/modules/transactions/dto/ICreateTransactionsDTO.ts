@@ -1,9 +1,9 @@
+import { TransactionType } from "@prisma/client"
 
 interface ICreateTransactionDTO {
     client_id: string
     amount: number
-    type: string
-
+    type: TransactionType
 }
 
 export {ICreateTransactionDTO}

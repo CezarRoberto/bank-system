@@ -21,6 +21,10 @@ class CreateTransactionUseCase {
             throw new AppError('Client Doesnt Exists', 404);
         }
 
+        if(type !== "WITHDRAW" && type !== "DEPOSIT") {
+            throw new AppError('Please, insert a valid type', 409)
+        }
+
         const transaction = await this.transactionRepository.create({
             client_id,
             amount,

@@ -13,8 +13,8 @@ datasource db {
 model Company {
   id         String   @id @unique @default(uuid())
   name       String
-  cnpj       String
-  code       String   @unique
+  cnpj       String   @unique
+  code       String
   clients    Client[]
   created_at DateTime @default(now())
 
@@ -22,26 +22,27 @@ model Company {
 }
 
 model Client {
-  id           String        @id @unique @default(uuid())
+  id           String         @id @unique @default(uuid())
   name         String
   cpf          String
-  email        String        @unique
+  email        String         @unique
   password     String
   company_id   String
   credits      String
   amount       Int
   transactions Transactions[]
-  company      Company       @relation(fields: [company_id], references: [id])
-  
+  company      Company        @relation(fields: [company_id], references: [id])
+
   @@map("clients")
 }
 
 model Transactions {
-  id      String          @id @unique @default(uuid())
-  type    TransactionType @default(DEPOSIT)
-  amount  Int
+  id        String          @id @unique @default(uuid())
+  type      TransactionType @default(DEPOSIT)
+  amount    Int
   client_id String
-  client Client @relation(fields: [client_id], references: [id])
+  client    Client          @relation(fields: [client_id], references: [id], onDelete: Cascade)
+
   @@map("transactions")
 }
 
@@ -49,5 +50,3 @@ enum TransactionType {
   DEPOSIT
   WITHDRAW
 }
-
-
