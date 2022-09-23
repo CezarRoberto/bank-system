@@ -5,7 +5,7 @@ import { CreateCompanyUseCase } from './createCompanyUseCase';
 
 
 class CreateCompanyController {
-    async handle(request: Request, response: Response) {
+    async handle(request: Request, response: Response): Promise<Response> {
         const {name, cnpj, code} = request.body;
         const createCompanyUseCase = container.resolve(CreateCompanyUseCase);
 
