@@ -3,8 +3,8 @@ import { ICreateCompanyDTO } from "../dtos/ICreateCompanyDTO"
 
 interface ICompanyRepository {
     create({name, cnpj, code}: ICreateCompanyDTO): Promise<Company>
-    findById(id: string): Promise<Company>
-    findByCNPJ(cnpj: string): Promise<Company>
+    findById(id: string): Promise<Company | null>
+    findByCNPJ(cnpj: string): Promise<Company | null>
     findAll(): Promise<Company[]>
     deleteById(id: string): Promise<Company>
 }

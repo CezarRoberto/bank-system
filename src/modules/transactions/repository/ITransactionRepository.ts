@@ -1,5 +1,5 @@
 import { Transactions } from "@prisma/client"
-import { ICreateTransactionDTO } from "../dto/ICreateTransactionsDTO"
+import { ICreateTransactionDTO } from "../dtos/ICreateTransactionsDTO"
 
 interface ITransactionRepository {
     create({client_id, amount, type}: ICreateTransactionDTO): Promise<Transactions>

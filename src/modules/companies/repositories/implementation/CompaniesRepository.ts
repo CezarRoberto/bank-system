@@ -1,48 +1,49 @@
-
-import { ICreateCompanyDTO } from "@modules/companies/dtos/ICreateCompanyDTO";
-import { Company } from "@prisma/client";
-import prismaClient from "@shared/infra/prisma";
-import { ICompanyRepository } from "../ICompaniesRepository";
+import { ICreateCompanyDTO } from '@modules/companies/dtos/ICreateCompanyDTO';
+import { Company } from '@prisma/client';
+import prismaClient from '@shared/infra/prisma';
+import { Context } from '@shared/infra/prisma/context';
+import { ICompanyRepository } from '../ICompaniesRepository';
 
 class CompanyRepository implements ICompanyRepository {
+    constructor(private readonly ctx: Context = { prisma: prismaClient }) {}
     async create({ name, cnpj, code }: ICreateCompanyDTO): Promise<Company> {
-        const company = await prismaClient.company.create({
+        const company = await this.ctx.prisma.company.create({
             data: {
                 name,
                 cnpj,
-                code
-            }
-        })
+                code,
+            },
+        });
 
-        return company
+        return company;
     }
 
-    async findById(id: string): Promise<Company> {
-        const company = await prismaClient.company.findUnique({
-            where: {id}
-        })
+    async findById(id: string): Promise<Company | null> {
+        const company = await this.ctx.prisma.company.findUnique({
+            where: { id },
+        });
 
-        return company as Company
+        return company;
     }
 
-    async findByCNPJ(cnpj: string): Promise<Company> {
-        const company = await prismaClient.company.findFirst({
-            where: {cnpj}
-        })
+    async findByCNPJ(cnpj: string): Promise<Company | null> {
+        const company = await this.ctx.prisma.company.findFirst({
+            where: { cnpj },
+        });
 
-        return company as Company
+        return company;
     }
 
     async findAll(): Promise<Company[]> {
-        const companies = await prismaClient.company.findMany()
-        return companies
+        const companies = await this.ctx.prisma.company.findMany();
+        return companies;
     }
 
     async deleteById(id: string): Promise<Company> {
-        const company = await prismaClient.company.delete({
-            where: {id}
-        })
-        return company
+        const company = await this.ctx.prisma.company.delete({
+            where: { id },
+        });
+        return company;
     }
 }
-export {CompanyRepository}
+export { CompanyRepository };

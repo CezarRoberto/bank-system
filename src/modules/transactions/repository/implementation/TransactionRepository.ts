@@ -1,11 +1,13 @@
-import { ICreateTransactionDTO } from "@modules/transactions/dto/ICreateTransactionsDTO";
+import { ICreateTransactionDTO } from "@modules/transactions/dtos/ICreateTransactionsDTO";
 import { Transactions,  } from "@prisma/client";
 import prismaClient from "@shared/infra/prisma";
+import { Context } from "@shared/infra/prisma/context";
 import { ITransactionRepository } from "../ITransactionRepository";
 
 class TransactionRepository implements ITransactionRepository {
+    constructor(private readonly ctx: Context = {prisma: prismaClient}) {}
     async create({ client_id, amount, type }: ICreateTransactionDTO): Promise<Transactions> {
-        const transaction = await prismaClient.transactions.create({
+        const transaction = await this.ctx.prisma.transactions.create({
             data: {
                 client_id,
                 amount,
@@ -14,8 +16,8 @@ class TransactionRepository implements ITransactionRepository {
         })
 
         if (transaction.type == "DEPOSIT") {
-            await prismaClient.$transaction([
-                prismaClient.client.update({
+            await this.ctx.prisma.$transaction([
+                this.ctx.prisma.client.update({
                     where: {
                         id: transaction.client_id
                     },
@@ -29,8 +31,8 @@ class TransactionRepository implements ITransactionRepository {
         }
 
         if (transaction.type == "WITHDRAW") {
-            await prismaClient.$transaction([
-                prismaClient.client.update({
+            await this.ctx.prisma.$transaction([
+                this.ctx.prisma.client.update({
                     where: {
                         id: transaction.client_id
                     },
@@ -46,7 +48,7 @@ class TransactionRepository implements ITransactionRepository {
 }
 
     async findByClient(client_id: string): Promise<Transactions[]> {
-        const transactions = await prismaClient.transactions.findMany({
+        const transactions = await this.ctx.prisma.transactions.findMany({
             where: { client_id }
         })
 
@@ -54,7 +56,7 @@ class TransactionRepository implements ITransactionRepository {
     }
 
     async findById(id: string): Promise<Transactions | null> {
-        const transactions = await prismaClient.transactions.findFirst({
+        const transactions = await this.ctx.prisma.transactions.findFirst({
             where: { id }
         })
 
@@ -62,13 +64,13 @@ class TransactionRepository implements ITransactionRepository {
     }
 
     async deleteTransaction(id: string): Promise<Transactions> {
-        const deletedTransaction = await prismaClient.transactions.delete({
+        const deletedTransaction = await this.ctx.prisma.transactions.delete({
             where: { id }
         })
 
         if (deletedTransaction.type == "DEPOSIT") {
-            await prismaClient.$transaction([
-                prismaClient.client.update({
+            await this.ctx.prisma.$transaction([
+                this.ctx.prisma.client.update({
                     where: {
                         id: deletedTransaction.client_id
                     },
@@ -82,8 +84,8 @@ class TransactionRepository implements ITransactionRepository {
         }
 
         if (deletedTransaction.type == "WITHDRAW") {
-            await prismaClient.$transaction([
-                prismaClient.client.update({
+            await this.ctx.prisma.$transaction([
+                this.ctx.prisma.client.update({
                     where: {
                         id: deletedTransaction.client_id
                     },
