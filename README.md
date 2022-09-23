@@ -1,6 +1,6 @@
-**Docs And Deploy**
+**Intro**
 
-<a>https://bank-system5.herokuapp.com/api-docs/</a>
+<h3>Application used to manage and simply bank operations, you will be able to create a new company(Bank) and add clients then, it will be possible to withdraw and deposit money by the ID. </h3>
 <br>
 <br>
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
@@ -20,3 +20,28 @@ Execute this command inside your direct root
    
 
      docker-compose up
+
+**Coverage**
+
+
+Execute this command inside your direct root
+   
+
+     yarn test
+
+     
+**Watchman Test**
+
+
+Execute this command inside your direct root
+   
+
+     yarn test:watch
+
+**Build**
+
+
+Execute this command inside your direct root
+   
+
+     yarn build
