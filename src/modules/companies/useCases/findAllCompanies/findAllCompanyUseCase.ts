@@ -12,7 +12,7 @@ class FindAllCompaniesUseCase {
     async execute() {
         const companies = await this.companiesRepository.findAll()
 
-        if(!companies) {
+        if(companies.length === 0) {
             throw new AppError('No Companies have been found', 404);
         }
 

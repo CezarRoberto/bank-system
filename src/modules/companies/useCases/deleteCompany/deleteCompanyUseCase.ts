@@ -9,7 +9,7 @@ class DeleteCompanyUseCase {
         private companiesRepository: ICompanyRepository,
     ) { }
     
-    async execute({ id }) {
+    async execute(id: string ) {
         const company = await this.companiesRepository.deleteById(id)
 
         if (!company) {

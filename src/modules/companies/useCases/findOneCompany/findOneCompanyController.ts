@@ -7,7 +7,7 @@ class FindOneCompanyController {
         const { id } = request.params
         const FindOneCompanyUseCase = container.resolve(findOneCompanyUseCase);
 
-        const company = await FindOneCompanyUseCase.execute({ id })
+        const company = await FindOneCompanyUseCase.execute(id)
 
         return response.status(200).json(company)
     }

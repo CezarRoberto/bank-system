@@ -39,7 +39,7 @@ class CompanyRepository implements ICompanyRepository {
         return companies;
     }
 
-    async deleteById(id: string): Promise<Company> {
+    async deleteById(id: string): Promise<Company | null> {
         const company = await this.ctx.prisma.company.delete({
             where: { id },
         });

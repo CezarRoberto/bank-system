@@ -6,7 +6,7 @@ interface ICompanyRepository {
     findById(id: string): Promise<Company | null>
     findByCNPJ(cnpj: string): Promise<Company | null>
     findAll(): Promise<Company[]>
-    deleteById(id: string): Promise<Company>
+    deleteById(id: string): Promise<Company | null>
 }
 
 export {ICompanyRepository}

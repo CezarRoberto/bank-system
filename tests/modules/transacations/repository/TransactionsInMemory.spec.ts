@@ -1,5 +1,5 @@
 import { ICreateTransactionDTO } from "@modules/transactions/dtos/ICreateTransactionsDTO";
-import { TransactionRepository } from "@modules/transactions/repository/implementation/TransactionRepository";
+import { TransactionRepository } from "@modules/transactions/repositories/implementation/TransactionRepository";
 import { TransactionType } from "@prisma/client";
 import { Context, createMockContext, MockContext } from "@shared/infra/prisma/context";
 

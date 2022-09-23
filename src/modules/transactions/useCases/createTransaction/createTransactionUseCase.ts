@@ -1,5 +1,5 @@
 import { ClientRepository } from "@modules/clients/repositories/implementations/ClientRepository";
-import { TransactionRepository } from "@modules/transactions/repository/implementation/TransactionRepository";
+import { TransactionRepository } from "@modules/transactions/repositories/implementation/TransactionRepository";
 import { AppError } from "@shared/error/AppError";
 import { inject, injectable } from "tsyringe";
 

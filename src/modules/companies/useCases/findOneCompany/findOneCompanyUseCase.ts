@@ -9,7 +9,7 @@ class findOneCompanyUseCase {
         private companiesRepository: ICompanyRepository,
     ) { }
 
-    async execute({ id }) {
+    async execute(id: string) {
         const company = await this.companiesRepository.findById(id)
 
         if (!company) {

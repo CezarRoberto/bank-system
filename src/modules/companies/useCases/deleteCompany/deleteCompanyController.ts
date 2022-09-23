@@ -7,7 +7,7 @@ class DeleteCompanyController {
         const { id } = request.params;
         const deleteOneCompanyUseCase = container.resolve(DeleteCompanyUseCase)
 
-        const company = await deleteOneCompanyUseCase.execute({ id })
+        await deleteOneCompanyUseCase.execute(id)
 
         return response.status(200).json({ "message": "Deleted" })
     }
