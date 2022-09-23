@@ -16,7 +16,8 @@ model Company {
   cnpj       String   @unique
   code       String
   clients    Client[]
-  created_at DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   @@map("companies")
 }
@@ -31,7 +32,9 @@ model Client {
   credits      String
   amount       Int
   transactions Transactions[]
-  company      Company        @relation(fields: [company_id], references: [id])
+  company      Company        @relation(fields: [company_id], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   @@map("clients")
 }
@@ -42,6 +45,8 @@ model Transactions {
   amount    Int
   client_id String
   client    Client          @relation(fields: [client_id], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 
   @@map("transactions")
 }
