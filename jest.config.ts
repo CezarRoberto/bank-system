@@ -5,7 +5,6 @@ import { compilerOptions } from './tsconfig.json';
 export default {
     bail: true,
     clearMocks: true,
-    collectCoverage: true,
     collectCoverageFrom: [
         '<rootDir>/src/modules/**/*.ts',
         '!<rootDir>/src/modules/**/dtos/*.ts',
