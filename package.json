@@ -8,7 +8,9 @@
     "start": "node dist/shared/infra/http/server.js",
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
     "prepare": "husky install",
-    "test": "jest --runInBand --detectOpenHandles --passWithNoTests"
+    "test": "jest --runInBand --detectOpenHandles --passWithNoTests",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "yarn test --coverage"
   },
   "dependencies": {
     "@babel/cli": "^7.17.10",
