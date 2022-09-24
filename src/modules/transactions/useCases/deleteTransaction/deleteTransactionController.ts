@@ -5,7 +5,6 @@ import { DeleteTransactionUseCase } from './deleteTransactionUseCase';
 class DeleteTransactionController {
     async handle(request: Request, response: Response) {
         const { id } = request.params;
-
         const deleteTransactionUseCase = container.resolve(DeleteTransactionUseCase)
 
         await deleteTransactionUseCase.execute(id)

@@ -12,7 +12,7 @@ class FindTransactionByClientUseCase {
     async execute(client_id: string) {
         const clientHaveTransactions = await this.transactionRepository.findByClient(client_id)
 
-        if (!clientHaveTransactions) {
+        if (clientHaveTransactions.length === 0) {
             throw new AppError('Client Doesnt Have Transactions', 404);
         }
 
