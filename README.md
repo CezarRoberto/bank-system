@@ -1,6 +1,6 @@
 **Intro**
 
-<a> The Application is used to manage and simply bank operations, you will be able to create a new company(Bank) and add clients then, it will be possible to withdraw and deposit money by the ID. </a>
+<a> The Application is used to manage and simply bank operations, you will be able to create a new company(Bank) and add clients to them, and it will be possible to withdraw and deposit money by the ID. Also, it is possible to do GET and DELETE requests using the id </a>
 <br>
 <br>
 
@@ -22,13 +22,24 @@ Execute this command inside your direct root
 
      docker-compose up
 
-**Coverage**
+
+**Test**
 
 
 Execute this command inside your direct root
    
 
      yarn test
+
+
+
+**Coverage**
+
+
+Execute this command inside your direct root
+   
+
+     yarn test:coverage
 
      
 **Watchman Test**
