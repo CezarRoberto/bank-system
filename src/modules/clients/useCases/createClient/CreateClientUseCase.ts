@@ -9,7 +9,7 @@ import { inject, injectable } from 'tsyringe';
 class CreateClientUseCase {
     constructor(
         @inject('ClientRepository')
-        private clientRepository: ClientRepository
+        private readonly clientRepository: ClientRepository
     ) { }
 
     async execute({ name, cpf, email, password, company_id, credits, amount }) {

@@ -13,7 +13,7 @@ class FindAllClientsUseCase {
     async execute() {
         const clients = await this.clientRepository.findAll()
 
-        if(!clients) {
+        if(clients.length === 0) {
             throw new AppError('No Clients have been found', 404);
         }
 

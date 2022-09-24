@@ -49,7 +49,7 @@ class ClientRepository implements IClientRepository {
         return clients
     }
     
-    async deleteById(id: string): Promise<Client> {
+    async deleteById(id: string): Promise<Client | null> {
         const client = await this.ctx.prisma.client.delete({
             where: { id }
         })

@@ -8,7 +8,7 @@ class DeleteClientController {
         const {id} = request.params;
         const deleteClientUseCase = container.resolve(DeleteClientUseCase)
 
-        const client = await deleteClientUseCase.execute(id)
+        await deleteClientUseCase.execute(id)
 
         return response.status(200).json({"message": "deleted"})
 

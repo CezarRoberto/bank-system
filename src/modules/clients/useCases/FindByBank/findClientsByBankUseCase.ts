@@ -14,7 +14,7 @@ class FindAllClientsByBankUseCase {
     async execute(company_id: string) {
         const clientsDoesntExists = await this.clientRepository.findAllByBank(company_id)
 
-        if(!clientsDoesntExists) {
+        if(clientsDoesntExists.length === 0) {
             throw new AppError('Clients Doesnt Registred', 404);
         }
 

@@ -6,7 +6,7 @@ interface IClientRepository {
     findById(id: string): Promise<Client | null>
     findAll(): Promise<Client[]>
     findByEmail(email: string): Promise<Client | null>
-    deleteById(id: string): Promise<Client>
+    deleteById(id: string): Promise<Client | null>
     findAllByBank(company_id: string): Promise<Client[]>
 }
 
