@@ -1,4 +1,5 @@
 import { ICreateClientDTO } from '@modules/clients/dtos/ICreateClientDTO';
+import { IUpdateClientDTO } from '@modules/clients/dtos/IUpdateClientDTO';
 import { ClientRepository } from '@modules/clients/repositories/implementations/ClientRepository';
 import {
     Context,
@@ -50,6 +51,40 @@ describe('Clients', () => {
         });
     });
 
+    describe('Update', () => {
+        it('should be able to update a new client', async () => {
+            const client = {
+                id: 'any_id',
+                name: 'any_name',
+                cpf: 'any_cpf',
+                email: 'any_email',
+                password: 'any_password',
+                company_id: 'any_company_id',
+                credits: 'any_credits',
+                amount: 100,
+                createdAt: new Date('2022-08-23T17:33:38.232Z'),
+                updatedAt: new Date('2022-08-23T17:33:38.232Z'),
+            };
+
+            mockCtx.prisma.client.update.mockResolvedValueOnce(client);
+
+            const data: IUpdateClientDTO = {
+                id: 'any_id',
+                name: 'any_name',
+                cpf: 'any_cpf',
+                email: 'any_email',
+                password: 'any_password',
+                company_id: 'any_company_id',
+                credits: 'any_credits',
+                amount: 100,
+            };
+
+            const request = await sut.update(data);
+
+            expect(request).toEqual(client);
+        });
+    });
+
     describe('Find By Id', () => {
         it('should be able to return client by id', async () => {
             const client = {
@@ -75,6 +110,36 @@ describe('Clients', () => {
             mockCtx.prisma.client.findUnique.mockResolvedValueOnce(null);
 
             const request = await sut.findById('any_id');
+
+            expect(request).toEqual(null);
+        });
+    });
+
+    describe('Find By CPF', () => {
+        it('should be able to return client by cpf', async () => {
+            const client = {
+                id: 'any_id',
+                name: 'any_name',
+                cpf: 'any_cpf',
+                email: 'any_email',
+                password: 'any_password',
+                company_id: 'any_company_id',
+                credits: 'any_credits',
+                amount: 100,
+                createdAt: new Date('2022-08-23T17:33:38.232Z'),
+                updatedAt: new Date('2022-08-23T17:33:38.232Z'),
+            };
+
+            mockCtx.prisma.client.findFirst.mockResolvedValueOnce(client);
+
+            const request = await sut.findByCPF('any_id');
+
+            expect(request).toEqual(client);
+        });
+        it('should be able to return null when client doesnt exists', async () => {
+            mockCtx.prisma.client.findFirst.mockResolvedValueOnce(null);
+
+            const request = await sut.findByCPF('any_id');
 
             expect(request).toEqual(null);
         });

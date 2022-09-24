@@ -4,12 +4,7 @@ import { GoogleSignInUseCase } from './GoogleSignInUseCase';
 
 class GoogleSignInController {
     async handle(request: Request, response: Response): Promise<Response> {
-        const { token,
-            cpf,
-            company_id,
-            credits,
-            amount, } =
-            request.body;
+        const { token, cpf, company_id, credits, amount } = request.body;
         const googleSignInUseCase = container.resolve(GoogleSignInUseCase);
 
         const client = await googleSignInUseCase.execute({

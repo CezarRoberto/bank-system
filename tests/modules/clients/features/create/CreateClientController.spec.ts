@@ -1,7 +1,6 @@
 import { ClientRepository } from "@modules/clients/repositories/implementations/ClientRepository";
 import { CreateClientController } from "@modules/clients/useCases/createClient/CreateClientController";
 import { CreateClientUseCase } from "@modules/clients/useCases/createClient/CreateClientUseCase";
-import { ICompanyRepository } from "@modules/companies/repositories/ICompaniesRepository";
 import { mock, MockProxy } from "jest-mock-extended";
 import { container } from "tsyringe";
 

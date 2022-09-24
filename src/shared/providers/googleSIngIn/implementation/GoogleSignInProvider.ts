@@ -9,7 +9,7 @@ export class GoogleSignInProvider implements IGoogleSignInProvider {
         clientSecret: envs.GOOGLE_CLIENT_SECRET
     });
 
-    async signIn(token: string): Promise<TokenPayload> {
+    async signIn(token: string): Promise<TokenPayload | null> {
         const ticket = await this.google.verifyIdToken({
             idToken: token,
             audience: envs.GOOGLE_CLIENT_ID

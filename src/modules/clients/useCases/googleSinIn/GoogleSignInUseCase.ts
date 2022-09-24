@@ -27,7 +27,7 @@ export class GoogleSignInUseCase {
         company_id,
         credits,
         amount,
-    }: IRequest): Promise<Client> {
+    }: IRequest): Promise<Client | void> {
         const googleAccount = await this.googleSignInRepository.signIn(token);
 
         if (!googleAccount) {
@@ -36,17 +36,23 @@ export class GoogleSignInUseCase {
                 409,
             );
         }
+        const client = await this.clientRepository.findByCPF(cpf);
 
-        const client = await this.clientRepository.create({
-            name: googleAccount.name ?? 'Need Update',
-            amount,
-            company_id,
-            cpf,
-            credits,
-            email: googleAccount.email ?? 'Need Update',
-            password: googleAccount.aud,
-        });
+        if (client) {
+            const clientWithGoogle = await this.clientRepository.update({
+                id: client.id,
+                name: googleAccount.name,
+                amount,
+                company_id,
+                cpf,
+                credits,
+                email: googleAccount.email,
+                password: googleAccount.aud,
+            });
 
-        return client;
+            return clientWithGoogle;
+        } else {
+            throw new AppError('You must be create a account first', 409)
+        }
     }
 }
